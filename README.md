@@ -9,4 +9,5 @@ Python Console Engine for windows
 6) Clear canvas<br />
 7) Fill canvas<br />
 8) Draw Shape<br />
-9) Fill Shape
+9) Fill Shape<br />
+10) Change Title
