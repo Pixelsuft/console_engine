@@ -11,3 +11,7 @@ Python Console Engine for windows
 8) Draw Shape<br />
 9) Fill Shape<br />
 10) Change Title
+# Install
+```
+python -m pip install console-engine
+```
