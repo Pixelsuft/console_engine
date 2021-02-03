@@ -112,6 +112,19 @@ def shape(symbol = '@', left_top = (0, 0), width_height = (5, 5), color = '', en
                 canvas_mas[i][j] = symbol
 
 
+def text(string = 'Console Engine', left_top = (0, 0), length = 0, start = '', end = ''):
+    if length <= 0:
+        length = len(string)
+    global canvas_mas
+    canvas_mas[left_top[1]][left_top[0]] = start
+    for i in range(length):
+        if not i == 0:
+            canvas_mas[left_top[1]][left_top[0]+i] = ''
+        canvas_mas[left_top[1]][left_top[0]+i] += string[i]
+        if i == length-1:
+            canvas_mas[left_top[1]][left_top[0]+i] += end
+
+
 def convert():
     global canvas
     result = ''
