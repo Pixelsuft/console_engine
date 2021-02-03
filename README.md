@@ -10,7 +10,8 @@ Python Console Engine for windows
 7) Fill canvas<br />
 8) Draw Shape<br />
 9) Fill Shape<br />
-10) Change Title
+10) Draw Text On Canvas<br />
+11) Change Title
 # Install
 ```
 python -m pip install console-engine
