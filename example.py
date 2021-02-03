@@ -6,6 +6,7 @@ engine.mixer.async_play()
 fps = 10
 lister = ['@', '0', 'X', 'O', '2', 'E', 'S', '+', '-', '#', '(', '&', '^']
 running = True
+welcome_text = 'Pixelsuft Console Engine'
 
 
 def check_keys():
@@ -23,6 +24,7 @@ while running == True:
     engine.shape(engine.fore.GREEN+pick(lister)+engine.style.RESET_ALL, (0, 0), (7, 5))
     engine.shape(engine.fore.GREEN+pick(lister)+engine.style.RESET_ALL, (14, 0), (7, 5))
     engine.shape(engine.back.RED+pick(lister)+engine.style.RESET_ALL, (0, 10), (21, 5))
+    engine.text(welcome_text, (int(engine.width/2-len(welcome_text)/2), int(engine.height/2-1)), start = engine.back.GREEN + engine.fore.BLACK, end = engine.style.RESET_ALL)
     engine.up_screen()
     engine.convert()
     engine.display()
