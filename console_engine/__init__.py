@@ -7,6 +7,7 @@ if not os_type == 'nt':
 
 from wav_win_sound import Mixer as wav_mixer
 from os import get_terminal_size as get_size
+from os import environ as env
 from colorama import init as colorama_init
 from colorama import Fore as fore
 from colorama import Back as back
@@ -19,6 +20,8 @@ from pyautogui import moveTo as move_mouse_to
 from win32con import *
 from win32api import GetAsyncKeyState as get_async_key_state
 from win32api import GetSystemMetrics as get_screen_size
+from win32gui import GetWindowRect as get_window_size
+from win32gui import GetForegroundWindow as get_current_window
 from msvcrt import getch as wait_for_key
 
 
@@ -33,10 +36,13 @@ canvas = ''
 canvas_mas = []
 title = windows_dll.kernel32.SetConsoleTitleW
 del windows_dll
+real_mouse_x = 0
+real_mouse_y = 0
 mouse_x = 0
 mouse_y = 0
 screen_width = 0
 screen_height = 0
+window_geometry = (0, 0, 0, 0)
 
 
 def reload_screen_size():
@@ -46,11 +52,22 @@ def reload_screen_size():
     screen_height = int(get_screen_size(1))
 
 
+def reload_geometry():
+    global window_geometry
+    try:
+        window_geometry = get_window_size(get_current_window())
+    except:
+        pass
+
+
 def reload_mouse_pos():
+    global real_mouse_x
+    global real_mouse_y
     global mouse_x
     global mouse_y
-    mouse_x, mouse_y = get_mouse_pos()
-    return mouse_x, mouse_y
+    real_mouse_x, real_mouse_y = get_mouse_pos()
+    mouse_x = real_mouse_x - window_geometry[0]
+    mouse_y = real_mouse_y - window_geometry[1]
 
 
 def center_cursor():
@@ -65,11 +82,11 @@ def reload_size(fix_width=0, fix_height=1):
     if not temp_width == width or not temp_height == height:
         width = temp_width - fix_width
         height = temp_height - fix_height
+        canvas_mas = []
         for i in range(height):
             canvas_mas.append([])
             for j in range(width):
                 canvas_mas[i].append(' ')
-    return width, height
 
 
 def print(*args, **kwargs):
@@ -169,11 +186,13 @@ def up_screen(fix_count=1):
         print(cursor.UP())
 
 
-reload_screen_size()
-reload_size()
-reload_mouse_pos()
-up_screen(fix_count=10)
-clear()
-up_screen()
-display()
-title('Pixelsuft Console Engine')
+if '__CONSOLE_ENGINE_AUTO_HIDE' not in env:
+    reload_screen_size()
+    reload_size()
+    reload_geometry()
+    reload_mouse_pos()
+    up_screen(fix_count=10)
+    clear()
+    up_screen()
+    display()
+    title('Pixelsuft Console Engine')
