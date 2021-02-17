@@ -153,7 +153,7 @@ def shape(symbol='@', left_top=(0, 0), width_height=(5, 5), color='', end=''):
                 canvas_mas[i][j] = symbol
 
 
-def text(string='Console Engine', left_top=(0, 0), length=0, start='', end=''):
+def text(string='Console Engine', left_top=(0, 0), length=0, start='', end='', replacer = {}):
     if length <= 0:
         length = len(string)
     global canvas_mas
@@ -161,7 +161,10 @@ def text(string='Console Engine', left_top=(0, 0), length=0, start='', end=''):
     for i in range(length):
         if not i == 0:
             canvas_mas[left_top[1]][left_top[0]+i] = ''
-        canvas_mas[left_top[1]][left_top[0]+i] += string[i]
+        if string[i] in replacer:
+            canvas_mas[left_top[1]][left_top[0]+i] += replacer[string[i]]
+        else:
+            canvas_mas[left_top[1]][left_top[0]+i] += string[i]
         if i == length-1:
             canvas_mas[left_top[1]][left_top[0]+i] += end
 

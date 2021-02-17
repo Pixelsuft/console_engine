@@ -14,7 +14,7 @@ Fixed Old Bugs
 
 setuptools_setup(
     name="console_engine",
-    version="0.0.4",
+    version="0.0.7",
     author="Pixelsuft",
     description="Create Console Games (Windows ONLY!)",
     long_description=long_description,
